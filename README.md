@@ -1,24 +1,21 @@
-
 # CLI application
 
 Application for work with database
-
 
 ## Screenshots
 
 List of contacts:
 
-https://ibb.co/vwSxm3t
+https://ibb.co/jg2FC2k
 
 Get Contact by Id:
 
-https://ibb.co/mJJ5xnM
+https://ibb.co/71jRs8g
 
 Add contact:
 
-https://ibb.co/1bkGmf7
+https://ibb.co/Sv1xH1q
 
 Remove contact:
 
-
-https://ibb.co/sRFrXY6
+https://ibb.co/JQ7sBF3

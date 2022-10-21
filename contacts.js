@@ -4,19 +4,14 @@ const { nanoid } = require("nanoid");
 
 const contactsPath = path.join(__dirname, "./db/contacts.json");
 
-async function getContacts() {
+async function listContacts() {
   const contactsData = await fs.readFile(contactsPath);
   const contacts = JSON.parse(contactsData);
   return contacts;
 }
 
-async function listContacts() {
-    const contacts = await getContacts();
-    return contacts;
-}
-
 async function getContactById(contactId) {
-  const contacts = await getContacts();
+  const contacts = await listContacts();
   const contact = contacts.find((item) => item.id === contactId);
   if (!contact) {
     return null;
@@ -25,22 +20,20 @@ async function getContactById(contactId) {
 }
 
 async function removeContact(contactId) {
-  console.log("removeTodo " + contactId);
-  let contacts = await getContacts();
-  const contact = contacts.find((item) => item.id === contactId);
-  if (!contact) {
+  const contacts = await listContacts();
+  const index = contacts.findIndex((contact) => contact.id === contactId);
+  if (index === -1) {
     return null;
-    }
-  const filteredContacts = contacts.filter((item) => item.id !== contactId);
-  contacts = filteredContacts;
+  }
+  const [removeContact] = contacts.splice(index, 1);
   await fs.writeFile(contactsPath, JSON.stringify(contacts));
-  return contact;
+  return removeContact;
 }
 
 async function addContact(name, email, phone) {
+  const contacts = await listContacts();
   const id = nanoid();
-  const contact = { id, name, email, phone};
-  const contacts = await getContacts();
+  const contact = { id, name, email, phone};  
   contacts.push(contact);
   await fs.writeFile(contactsPath, JSON.stringify(contacts));
 
